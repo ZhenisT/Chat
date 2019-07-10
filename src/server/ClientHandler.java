@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Timer;
 
 public class ClientHandler {
@@ -55,10 +56,7 @@ public class ClientHandler {
 
                     //Цикл для работы
                     while (server.isNickAuthorized(getNick())) {
-
-                        socket.setSoTimeout(30000);
                         String str = in.readUTF();
-
                         if (str.equals("/end")) {
                             out.writeUTF("/end");
                             System.out.println("Клиент отключился");
@@ -100,6 +98,7 @@ public class ClientHandler {
         }
 
     }
+
 
     private boolean timeOut(Socket socket) throws IOException {
         if (timeout < System.currentTimeMillis()) {

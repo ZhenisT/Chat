@@ -24,6 +24,7 @@ public class Server {
                 socket = server.accept();
                 System.out.println("Клиент подключился");
                 new ClientHandler(this,socket);
+                socket.setSoTimeout(30000);
             }
 
         } catch (IOException e) {
