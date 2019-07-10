@@ -28,7 +28,7 @@ public class ClientHandler {
                     // цикл авторизации.
 
                     while (true) {
-                        socket.setSoTimeout(30000);
+                        if (timeOut(socket)) break;
                         String str = in.readUTF();
                         if (str.startsWith("/auth")) {
                             String[] token = str.split(" ");
@@ -56,9 +56,9 @@ public class ClientHandler {
                     //Цикл для работы
                     while (server.isNickAuthorized(getNick())) {
 
-
+                        socket.setSoTimeout(30000);
                         String str = in.readUTF();
-                        if (timeOut(socket)) break;
+
                         if (str.equals("/end")) {
                             out.writeUTF("/end");
                             System.out.println("Клиент отключился");
